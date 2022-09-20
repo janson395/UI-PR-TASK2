@@ -23,6 +23,7 @@ namespace UI_PR_TASK2
         #endregion
         #region Private fields
         private string _name;
+        private string _lastname;
         private string _email;
         private string _github;
         #endregion
@@ -34,6 +35,16 @@ namespace UI_PR_TASK2
             {
                 _name = value;
                 OnPropertyChanget("Name");
+            }
+        }
+
+        public string LastName
+        {
+            get { return _lastname; }
+            set
+            {
+                _lastname = value;
+                OnPropertyChanget("LastName");
             }
         }
         public string Email

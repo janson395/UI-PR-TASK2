@@ -23,12 +23,15 @@ namespace UI_PR_TASK2
         private int _hashCode;
         private bool _cancelChanges;
         private User user = null;
+        private bool auth = false;
 
         public MainWindow()
         {
             InitializeComponent();
+            gridProfile.Visibility = Visibility.Hidden;
             _cancelChanges = false;
             user = new User("Dkit", "dkit@test.ru", "DkitGit");
+            user.LastName = "Dkit";
             _hashCode = user.GetHashCode();
             DataContext = user;
         }
@@ -51,13 +54,19 @@ namespace UI_PR_TASK2
                 user.Name = TxbName.Text;
                 user.Email = TxbEmail.Text;
                 user.Github = TxbGithub.Text;
-                
+                user.LastName = "Dkit";
+
                 DataContext = user;
 
                 if (DataContext.GetHashCode() != _hashCode)
                 {
                     SnackbarMsg("Данные обновлены", "ОК");
                     _hashCode = user.GetHashCode();
+
+
+                    auth = true;
+
+                    
                 }
             } 
             else
@@ -78,6 +87,16 @@ namespace UI_PR_TASK2
             MDSnackbarUnsavedChanges.IsActive = true;
             MDSnackbarMessage.Content = msg;
             MDSnackbarMessage.ActionContent = actionContent;
+        }
+
+        private void BtnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            tbUserName.Text = user.Name + " " + user.LastName;
+            tbFristName.Text = user.Name;
+            tbLastName.Text = user.LastName;
+
+            gridMain.Visibility = Visibility.Hidden;
+            gridProfile.Visibility = Visibility.Visible;
         }
     }
 }

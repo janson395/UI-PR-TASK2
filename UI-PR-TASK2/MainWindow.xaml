@@ -15,89 +15,225 @@
         FontFamily="Roboto"
         FontSize="14">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        <Grid
+            x:Name="gridMain">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <materialDesign:ColorZone Mode="PrimaryMid"
+            <materialDesign:ColorZone Mode="PrimaryMid"
                                   Grid.Row="0"
                                   VerticalAlignment="Stretch">
-            <TextBlock Text="Практическая работа №2"
+                <TextBlock Text="Практическая работа №2"
                        VerticalAlignment="Center"
                        Margin="16 20 16 20"
                        FontSize="30"
                        Foreground="White"/>
 
-        </materialDesign:ColorZone>
+            </materialDesign:ColorZone>
 
-        <StackPanel Margin="10 30"
+            <StackPanel Margin="10 30"
                     Grid.Row="1">
 
-            <Grid>
-                <materialDesign:PackIcon Kind="Face"
+                <Grid>
+                    <materialDesign:PackIcon Kind="Face"
                                      VerticalAlignment="Bottom"
                                      Margin="2 12"
                                      Foreground="{Binding BorderBrush, ElementName=TxbName}"/>
-                <TextBox x:Name="TxbName"
+                    <TextBox x:Name="TxbName"
                            Margin="5"
                            materialDesign:HintAssist.Hint="Имя"
                            Padding="18 0 0 0"
                            Text="{Binding Name}"
                            Style="{StaticResource MaterialDesignFilledTextBox}"/>
-            </Grid>
-            <Grid>
-                <materialDesign:PackIcon Kind="At"
+                </Grid>
+                <Grid>
+                    <materialDesign:PackIcon Kind="At"
                                      VerticalAlignment="Bottom"
                                      Margin="2 12"
                                      Foreground="{Binding BorderBrush, ElementName=TxbEmail}"/>
-                <TextBox x:Name="TxbEmail"
+                    <TextBox x:Name="TxbEmail"
                            Margin="5"
                            materialDesign:HintAssist.Hint="Почта"
                            Padding="18 0 0 0"
                            Text="{Binding Email}"
                            Style="{StaticResource MaterialDesignFilledTextBox}"/>
-            </Grid>
+                </Grid>
 
-            <Grid>
-                <StackPanel Orientation="Horizontal"
+                <Grid>
+                    <StackPanel Orientation="Horizontal"
                             VerticalAlignment="Bottom"
                             Margin="2 10">
-                    <materialDesign:PackIcon Kind="Face"
+                        <materialDesign:PackIcon Kind="Face"
                                      Foreground="{Binding BorderBrush, ElementName=TxbGithub}"/>
-                    <TextBox Text="https://github.com/"
+                        <TextBox Text="https://github.com/"
                                Padding="3 0 0 0"
                                Foreground="{Binding BorderBrush, ElementName=TxbGithub}"/>
-                </StackPanel>
+                    </StackPanel>
 
-                <TextBox x:Name="TxbGithub"
+                    <TextBox x:Name="TxbGithub"
                            Margin="5"
                            materialDesign:HintAssist.Hint="Github profile"
                            Padding="140 0 0 4"
                            Text="{Binding Github}"
                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-            </Grid>
-        </StackPanel>
+                </Grid>
+                
+                <Button x:Name="BtnLogin"
+                    Style="{StaticResource MaterialDesignRaisedLightButton}"
+                    Click="BtnLogin_Click" 
+                    Cursor="Hand"
+                    Margin="10 5 10 5"
+                    Content="Login">
+                </Button>
+            </StackPanel>
 
-        <Button x:Name="BtnSave"
+            <Button x:Name="BtnSave"
                 Grid.Row="0"
                 Grid.RowSpan="2"
                 Margin="50 72"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 Style="{StaticResource MaterialDesignFloatingActionAccentButton}"
-                Click="BtnSave_Click">
-            <materialDesign:PackIcon Kind="ContentSaveAlert"/>
-        </Button>
+                Click="BtnSave_Click" Cursor="Hand">
+                <materialDesign:PackIcon Kind="ContentSaveAlert"/>
+            </Button>
 
-        <materialDesign:Snackbar x:Name="MDSnackbarUnsavedChanges"
+            
+
+            <materialDesign:Snackbar x:Name="MDSnackbarUnsavedChanges"
                                  Grid.Row="1"
                                  HorizontalAlignment="Stretch"
                                  VerticalAlignment="Bottom">
-            <materialDesign:SnackbarMessage x:Name="MDSnackbarMessage"
+                <materialDesign:SnackbarMessage x:Name="MDSnackbarMessage"
                                             Content="Сохранить изменения?"
                                             ActionContent="ОТМЕНА"
                                             ActionClick="SnackbarMessage_ActionClick"/>
-        </materialDesign:Snackbar>
+            </materialDesign:Snackbar>
+        </Grid>
+        <Grid
+            x:Name="gridProfile"
+            Visibility="Hidden">
+            <materialDesign:Flipper
+                      Style="{StaticResource MaterialDesignCardFlipper}"
+                      materialDesign:ShadowAssist.ShadowDepth="Depth0"> 
+                <materialDesign:Flipper.FrontContent>
+                    <Grid
+                          Height="500"
+                          Width="400">
+                        <Grid.RowDefinitions>
+                            <RowDefinition
+                                 Height="150" />
+                            <RowDefinition
+                                Height="*" />
+                        </Grid.RowDefinitions>
+                        <materialDesign:ColorZone
+                                Mode="PrimaryLight"
+                                VerticalAlignment="Stretch">
+                            <materialDesign:PackIcon
+                                  Kind="AccountCircle"
+                                  Height="128"
+                                  Width="128"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Center" />
+                        </materialDesign:ColorZone>
+                        <StackPanel
+                                    Grid.Row="1"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                            <TextBlock
+                                x:Name="tbUserName"
+                                 Text="James Willock" />
+                            <Button
+                                  Style="{StaticResource MaterialDesignFlatButton}"
+                                  Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                  Margin="0 4 0 0"
+                                  Content="EDIT" />
+                        </StackPanel>
+                    </Grid>
+                </materialDesign:Flipper.FrontContent>
+                
+                <materialDesign:Flipper.BackContent>
+                    <Grid
+                          Height="500"
+                          Width="400">
+                        <Grid.RowDefinitions>
+                            <RowDefinition
+                                Height="Auto" />
+                            <RowDefinition
+                                 Height="*" />
+                        </Grid.RowDefinitions>
+                        <materialDesign:ColorZone
+                                Mode="SecondaryMid"
+                                Padding="6">
+                            <StackPanel
+                                 Orientation="Horizontal">
+                                <Button
+                                    Style="{StaticResource MaterialDesignToolForegroundButton}"
+                                    Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                    HorizontalAlignment="Left"> 
+                                    <materialDesign:PackIcon
+                                        Kind="ArrowLeft"
+                                        HorizontalAlignment="Right" />
+                                </Button>
+                                <TextBlock
+                                    Margin="8 0 0 0"
+                                    VerticalAlignment="Center"
+                                    Text="EDIT USER" />
+                            </StackPanel>
+                        </materialDesign:ColorZone>
+                        <Grid
+                            Grid.Row="1"
+                            Margin="0 6 0 0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Width="172">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBox
+                                  materialDesign:HintAssist.Hint="First name"
+                                  materialDesign:HintAssist.IsFloating="True"
+                                  Margin="0 12 0 0"
+                                x:Name="tbFristName"
+                                  Text="James" />
+                            <TextBox
+                                  Grid.Row="1"
+                                  materialDesign:HintAssist.Hint="Last name"
+                                  materialDesign:HintAssist.IsFloating="True"
+                                  Margin="0 12 0 0"
+                                x:Name="tbLastName"
+                                  Text="Willock" />
+                            <StackPanel
+                                  Grid.Row="2"
+                                  Orientation="Horizontal"
+                                  Margin="0 12 0 0"
+                                  HorizontalAlignment="Right">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Text="Email Contact" />
+                                <ToggleButton
+                                    Margin="8 0 0 0" />
+                            </StackPanel>
+                            <StackPanel
+                                  Grid.Row="3"
+                                  Orientation="Horizontal"
+                                  Margin="0 12 0 0"
+                                  HorizontalAlignment="Right">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Text="Telephone Contact" />
+                                <ToggleButton
+                                    Margin="8 0 0 0" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </materialDesign:Flipper.BackContent>
+            </materialDesign:Flipper>   
+        </Grid>
     </Grid>
 </Window>
