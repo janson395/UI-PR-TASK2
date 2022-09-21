@@ -77,7 +77,7 @@ namespace UI_PR_TASK2
 
         public override int GetHashCode()
         {
-            return (_name + _email + _github).GetHashCode();
+            return (_name + _email + _github + _lastname).GetHashCode();
         }
     }
 }

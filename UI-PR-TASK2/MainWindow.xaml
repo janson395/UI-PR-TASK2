@@ -85,7 +85,7 @@
                     Click="BtnLogin_Click" 
                     Cursor="Hand"
                     Margin="10 5 10 5"
-                    Content="Login">
+                    Content="Войти">
                 </Button>
             </StackPanel>
 
@@ -99,22 +99,10 @@
                 Click="BtnSave_Click" Cursor="Hand">
                 <materialDesign:PackIcon Kind="ContentSaveAlert"/>
             </Button>
-
-            
-
-            <materialDesign:Snackbar x:Name="MDSnackbarUnsavedChanges"
-                                 Grid.Row="1"
-                                 HorizontalAlignment="Stretch"
-                                 VerticalAlignment="Bottom">
-                <materialDesign:SnackbarMessage x:Name="MDSnackbarMessage"
-                                            Content="Сохранить изменения?"
-                                            ActionContent="ОТМЕНА"
-                                            ActionClick="SnackbarMessage_ActionClick"/>
-            </materialDesign:Snackbar>
         </Grid>
         <Grid
             x:Name="gridProfile"
-            Visibility="Hidden">
+            Visibility="Visible">
             <materialDesign:Flipper
                       Style="{StaticResource MaterialDesignCardFlipper}"
                       materialDesign:ShadowAssist.ShadowDepth="Depth0"> 
@@ -139,17 +127,29 @@
                                   HorizontalAlignment="Center" />
                         </materialDesign:ColorZone>
                         <StackPanel
-                                    Grid.Row="1"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center">
+                                 Grid.Row="1"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                            Height="300"
+                            Width="400">
                             <TextBlock
+                                HorizontalAlignment="Center"
                                 x:Name="tbUserName"
                                  Text="James Willock" />
                             <Button
                                   Style="{StaticResource MaterialDesignFlatButton}"
                                   Command="{x:Static materialDesign:Flipper.FlipCommand}"
-                                  Margin="0 4 0 0"
-                                  Content="EDIT" />
+                                  Margin="0 4 0 0">
+                                <Grid>
+                                    <materialDesign:PackIcon
+                                        Kind="PencilOutline"
+                                        HorizontalAlignment="Left"/>
+                                    <TextBlock 
+                                        Text="Редактировать"
+                                        Margin="16 0 0 0"/>
+                                </Grid>
+
+                            </Button>
                         </StackPanel>
                     </Grid>
                 </materialDesign:Flipper.FrontContent>
@@ -166,7 +166,7 @@
                         </Grid.RowDefinitions>
                         <materialDesign:ColorZone
                                 Mode="SecondaryMid"
-                                Padding="6">
+                                Padding="8 10 0 8">
                             <StackPanel
                                  Orientation="Horizontal">
                                 <Button
@@ -180,7 +180,7 @@
                                 <TextBlock
                                     Margin="8 0 0 0"
                                     VerticalAlignment="Center"
-                                    Text="EDIT USER" />
+                                    Text="Редактирование профиля" />
                             </StackPanel>
                         </materialDesign:ColorZone>
                         <Grid
@@ -188,7 +188,7 @@
                             Margin="0 6 0 0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Top"
-                            Width="172">
+                            Width="250">
                             <Grid.RowDefinitions>
                                 <RowDefinition />
                                 <RowDefinition />
@@ -196,14 +196,14 @@
                                 <RowDefinition />
                             </Grid.RowDefinitions>
                             <TextBox
-                                  materialDesign:HintAssist.Hint="First name"
+                                  materialDesign:HintAssist.Hint="Имя"
                                   materialDesign:HintAssist.IsFloating="True"
                                   Margin="0 12 0 0"
                                 x:Name="tbFristName"
                                   Text="James" />
                             <TextBox
                                   Grid.Row="1"
-                                  materialDesign:HintAssist.Hint="Last name"
+                                  materialDesign:HintAssist.Hint="Фамилия"
                                   materialDesign:HintAssist.IsFloating="True"
                                   Margin="0 12 0 0"
                                 x:Name="tbLastName"
@@ -215,8 +215,10 @@
                                   HorizontalAlignment="Right">
                                 <TextBlock
                                     VerticalAlignment="Center"
-                                    Text="Email Contact" />
+                                    Text="Редактировать имя" />
                                 <ToggleButton
+                                    x:Name="tbEditFirstName"
+                                    Click="ToogleButtonEditName_Click"
                                     Margin="8 0 0 0" />
                             </StackPanel>
                             <StackPanel
@@ -226,8 +228,10 @@
                                   HorizontalAlignment="Right">
                                 <TextBlock
                                     VerticalAlignment="Center"
-                                    Text="Telephone Contact" />
+                                    Text="Редактировать фамилию" />
                                 <ToggleButton
+                                    x:Name="tbEditLastName"
+                                    Click="ToogleButtonEditLastName_Click"
                                     Margin="8 0 0 0" />
                             </StackPanel>
                         </Grid>
@@ -235,5 +239,14 @@
                 </materialDesign:Flipper.BackContent>
             </materialDesign:Flipper>   
         </Grid>
+        <materialDesign:Snackbar x:Name="MDSnackbarUnsavedChanges"
+                                 Grid.Row="1"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Bottom">
+            <materialDesign:SnackbarMessage x:Name="MDSnackbarMessage"
+                                            Content="Сохранить изменения?"
+                                            ActionContent="ОТМЕНА"
+                                            ActionClick="SnackbarMessage_ActionClick"/>
+        </materialDesign:Snackbar>
     </Grid>
 </Window>

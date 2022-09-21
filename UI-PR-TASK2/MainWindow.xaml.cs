@@ -34,6 +34,10 @@ namespace UI_PR_TASK2
             user.LastName = "Dkit";
             _hashCode = user.GetHashCode();
             DataContext = user;
+            auth = true;
+
+            tbFristName.IsEnabled = false;
+            tbLastName.IsEnabled = false;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -63,10 +67,7 @@ namespace UI_PR_TASK2
                     SnackbarMsg("Данные обновлены", "ОК");
                     _hashCode = user.GetHashCode();
 
-
                     auth = true;
-
-                    
                 }
             } 
             else
@@ -91,12 +92,58 @@ namespace UI_PR_TASK2
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            tbUserName.Text = user.Name + " " + user.LastName;
-            tbFristName.Text = user.Name;
-            tbLastName.Text = user.LastName;
+            if (auth)
+            {
+                tbUserName.Text = user.Name + " " + user.LastName;
+                tbFristName.Text = user.Name;
+                tbLastName.Text = user.LastName;
 
-            gridMain.Visibility = Visibility.Hidden;
-            gridProfile.Visibility = Visibility.Visible;
+                gridMain.Visibility = Visibility.Hidden;
+                gridProfile.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                SnackbarMsg("Сохраните данные", "ОК");
+            }
+        }
+
+        private void ToogleButtonEditName_Click(object sender, RoutedEventArgs e)
+        {
+            if (tbEditFirstName.IsChecked == false)
+            {
+                if (user.Name != tbFristName.Text)
+                {
+                    user.Name = tbFristName.Text;
+                    DataContext = user;
+                    if (DataContext.GetHashCode() != _hashCode)
+                    {
+                        SnackbarMsg("Данные обновлены", "ОК");
+                        _hashCode = user.GetHashCode();
+                    }
+                }
+            }
+            tbFristName.IsEnabled = (bool)tbEditFirstName.IsChecked;
+            tbUserName.Text = user.Name + " " + user.LastName;
+        }
+
+        private void ToogleButtonEditLastName_Click(object sender, RoutedEventArgs e)
+        {
+            if (tbEditLastName.IsChecked == false)
+            {
+                if(user.LastName != tbLastName.Text)
+                {
+                    user.LastName = tbLastName.Text;
+                    DataContext = user;
+                    if (DataContext.GetHashCode() != _hashCode)
+                    {
+                        SnackbarMsg("Данные обновлены", "ОК");
+                        _hashCode = user.GetHashCode();
+                    }
+                }
+            }
+            tbLastName.IsEnabled = (bool)tbEditLastName.IsChecked;
+            tbUserName.Text = user.Name + " " + user.LastName;
+
         }
     }
 }
